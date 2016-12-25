@@ -1,0 +1,54 @@
+<div class="container chat">
+  <div class="chat__account account">
+    <div class="account__prog">Batya Messenger</div>
+    <h5 class="account__name">{{ login }}</h5>
+    <div class="account__logout"><a (click)="logOut()" class="btn">Выйти из аккаунта</a></div>
+  </div>
+
+  <div class="chat__users">
+    <div class="wrap">
+      <div *ngFor="let dialog of dialogs" class="user-chat"
+           [class.active]="dialog === selectedDialog"
+           (click)="onSelect(dialog)">
+        <div class="user-chat__avatar"><img src="assets/img/avatarDefault.png" alt=""></div>
+        <div class="user-chat__info">
+          <h5 class="name">{{ dialog.name }}</h5>
+          <p class="last-message"><span class="sender">{{ dialog.last_message.sender == login ? 'You' : dialog.last_message.sender }}</span>
+            {{ dialog.last_message.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat__message">
+    <div class="default-page" *ngIf="!selectedDialog">
+      <p><span class="sticker"></span>Выберите чат, чтобы начать переписку</p>
+    </div>
+
+    <div class="wrap" *ngIf="selectedDialog">
+      <div *ngFor="let message of messages" class="user-message" [class.user-message--ans]="message.sender === login">
+        <div *ngIf="message.text == 'system'">
+          <div class="spec-message">{{ getType(message.content) }}</div>
+        </div>
+        <div *ngIf="message.text != 'system'">
+          <div class="user-message__ava"><img src="assets/img/avatarDefault.png" alt=""></div>
+          <div class="user-message__text"><span class="name" *ngIf="message.sender != login">{{ message.sender }}</span>{{ message.content }}
+            <span class="time">{{ message.timestamp | amFromUnix | amDateFormat:'HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="text-input">
+      <form (submit)="sendMessage(message.value); message.value = ''">
+        <div class="text-input__input">
+          <textarea #message (keyup.enter)="sendMessage(message.value); message.value = ''"
+                    placeholder="Введите сообщение"></textarea>
+        </div>
+        <div class="text-input__button">
+          <button class="btn">Отправить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
