@@ -6,6 +6,9 @@ import { Contact } from "./contact";
 import { Http, Headers, RequestOptions } from "@angular/http";
 import { Message } from "./message";
 import { DialogService } from "./dialog.service";
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+
 
 @Component({
   moduleId: module.id,
@@ -31,6 +34,20 @@ export class ChatComponent {
     this.selectedDialog = dialog;
 
     this.getMessages(this.selectedDialog);
+    Observable.interval(2000).subscribe(() => this.getMessages(this.selectedDialog));
+    // let obs: Observable<Array<number>> = new Observable(observer: => {
+    //   observer.next();
+    //
+    //   setInterval(() => {
+    //     observer.next();
+    //   }, 2000)
+    // });
+    //
+    // obs.subscribe(() => {
+    //   this.getMessages(this.selectedDialog);
+    //
+    //   console.log('Reload chat');
+    // });
   }
 
   logOut(): void {
@@ -103,5 +120,19 @@ export class ChatComponent {
     this.login = this.cookie.get('login');
 
     this.getContacts();
+    Observable.interval(5000).subscribe(() => this.getContacts());
+    // let obs: Observable<Array<number>> = new Observable(observer => {
+    //   observer.next();
+    //
+    //   setInterval(() => {
+    //     observer.next();
+    //   }, 5000)
+    // });
+    //
+    // obs.subscribe(() => {
+    //   this.getContacts();
+    //
+    //   console.log('Reload navbar');
+    // });
   }
 }

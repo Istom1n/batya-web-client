@@ -9,7 +9,7 @@ import { RegistrationComponent } from "./registration.component";
 import { ChatComponent } from "./chat.component";
 
 import { AppRoutingModule } from "./app-routing.module";
-//
+// import { Angular2AutoScroll } from "angular2-auto-scroll/lib/angular2-auto-scroll.directive";
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { ContactsService } from "./contacts.service";
 

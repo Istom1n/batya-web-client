@@ -25,7 +25,7 @@
       <p><span class="sticker"></span>Выберите чат, чтобы начать переписку</p>
     </div>
 
-    <div class="wrap" *ngIf="selectedDialog">
+    <div angular2-auto-scroll class="wrap" *ngIf="selectedDialog">
       <div *ngFor="let message of messages" class="user-message" [class.user-message--ans]="message.sender === login">
         <div *ngIf="message.text == 'system'">
           <div class="spec-message">{{ getType(message.content) }}</div>
